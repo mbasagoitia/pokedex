@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DisplayCard from "../components/DisplayCard";
 import Filter from "../components/Filter";
 import SearchBar from "../components/SearchBar";
-import { filterListByProps } from "../helperFunctions";
+import { filterListByProps, filterListByName } from "../helperFunctions";
 const API_URL = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
 
 
@@ -10,9 +10,7 @@ function Homepage () {
     const [pokemonList, setPokemonList] = useState([]);
     const [hasLoaded, setHasLoaded] = useState(false);
     const [filteredList, setFilteredList] = useState([]);
-    const [typeHasBeenChanged, setTypeHasBeenChanged] = useState(false);
-    const [weaknessHasBeenChanged, setWeaknessHasBeenChanged] = useState(false);
-  
+
     function fetchPokemon () {
       fetch(API_URL)
       .then((res) => res.json())
@@ -33,26 +31,32 @@ function Homepage () {
     }
 
 
-    //add logic for both to work here
     const filterType = document.querySelector(`#filter-type`);
     const filterWeakness = document.querySelector(`#filter-weaknesses`);
-    //Need to add logic for when one of the values is
+    //also, take out master list from return statement?
+    //somehow let the user know no pokemon match the search criteria
+    //change logic to let you click on the whole card to link to new page
     function handlechangeType (e) {
       let filterValue = e.target.value;
       setFilteredList(filterListByProps(pokemonList, "type", "weaknesses", filterValue, filterWeakness.value));
     }
+
     function handlechangeWeakness (e) {
       let weaknessValue = e.target.value;
       setFilteredList(filterListByProps(pokemonList, "type", "weaknesses", filterType.value, weaknessValue));
     }
 
+    function filterByName (e) {
+      setFilteredList(filterListByName(pokemonList, e.target.value));
+    }
+
     return (
         <>
         <header>
-          <h1>Pokedex</h1>
-          <Filter masterList={pokemonList} list={filteredList} prop="type" handlechange={handlechangeType}/>
-          <Filter masterList={pokemonList} list={filteredList} prop="weaknesses" handlechange={handlechangeWeakness}/>
-          <SearchBar />
+          <h1 id="main-title">Pokedex</h1>
+          <Filter list={pokemonList} prop="type" handlechange={handlechangeType}/>
+          <Filter list={pokemonList} prop="weaknesses" handlechange={handlechangeWeakness}/>
+          <SearchBar handlechange={filterByName}/>
         </header>
             <ul id="pokemon-list">
             {filteredList.map((pokemon) => <li key={pokemon.id}><DisplayCard num={pokemon.num} name={pokemon.name} src={pokemon.img} type={pokemon.type.join(", ")} weaknesses={`Weaknesses: ${pokemon.weaknesses.join(", ")}`}/></li>)}

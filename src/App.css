@@ -1,3 +1,5 @@
+/*styles for main page */
+
 header {
   background: #0A285F;
   height: 8rem;
@@ -13,6 +15,10 @@ header {
 header input, header select {
   width: 20vw;
   font-size: 1rem;
+}
+
+header label {
+  color: #FAF9F6;
 }
 
 body {
@@ -51,6 +57,7 @@ h1 {
   display: flex;
   justify-content: center;
   transition: 0.2s;
+  aspect-ratio: 1/1.6;
 }
 
 .card:hover {
@@ -62,6 +69,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 .card .info {
@@ -74,6 +82,8 @@ h1 {
   border: 2px solid #0A285F;
   border-radius: 5px;
   background: #FAF9F6;
+  width: 80%;
+  aspect-ratio: 1;
 }
 
 .poke-link {
@@ -87,3 +97,31 @@ h1 {
 .hidden {
   display: none;
 }
+
+.not-visible {
+  visibility: hidden;
+}
+
+/* styles for single pokemon page */
+
+#img-title-wrapper {
+  position: relative;
+  top: -8rem;
+}
+
+#single-pokemon-img {
+  width: 20vw;
+  min-width: 200px;
+  aspect-ratio: 1/1;
+}
+
+#single-pokemon-title {
+  font-size: clamp(2rem, 4vw, 3rem); 
+  color: #FAF9F6;
+}
+
+.arrow {
+  color: #FAF9F6;
+  font-size: clamp(2rem, 4vw, 3rem); 
+}
+
