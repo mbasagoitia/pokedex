@@ -30,11 +30,9 @@ function Homepage () {
         return <p>Loading...</p>
     }
 
-
     const filterType = document.querySelector(`#filter-type`);
     const filterWeakness = document.querySelector(`#filter-weaknesses`);
-    //also, take out master list from return statement?
-    //somehow let the user know no pokemon match the search criteria
+    //    if (filteredList.length === 0) 
     //change logic to let you click on the whole card to link to new page
     function handlechangeType (e) {
       let filterValue = e.target.value;
@@ -54,13 +52,17 @@ function Homepage () {
         <>
         <header>
           <h1 id="main-title">Pokedex</h1>
-          <Filter list={pokemonList} prop="type" handlechange={handlechangeType}/>
-          <Filter list={pokemonList} prop="weaknesses" handlechange={handlechangeWeakness}/>
-          <SearchBar handlechange={filterByName}/>
+          <div className="filter-header-wrapper">
+            <Filter list={pokemonList} prop="type" handlechange={handlechangeType}/>
+            <Filter list={pokemonList} prop="weaknesses" handlechange={handlechangeWeakness}/>
+            <SearchBar handlechange={filterByName}/>
+          </div>
         </header>
-            <ul id="pokemon-list">
+        <body>
+          <ul id="pokemon-list">
             {filteredList.map((pokemon) => <li key={pokemon.id}><DisplayCard num={pokemon.num} name={pokemon.name} src={pokemon.img} type={pokemon.type.join(", ")} weaknesses={`Weaknesses: ${pokemon.weaknesses.join(", ")}`}/></li>)}
-            </ul>
+          </ul>       
+        </body>
         </>
     )
 }
