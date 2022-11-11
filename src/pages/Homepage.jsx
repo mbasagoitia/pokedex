@@ -32,8 +32,7 @@ function Homepage () {
 
     const filterType = document.querySelector(`#filter-type`);
     const filterWeakness = document.querySelector(`#filter-weaknesses`);
-    //    if (filteredList.length === 0) 
-    //change logic to let you click on the whole card to link to new page
+
     function handlechangeType (e) {
       let filterValue = e.target.value;
       setFilteredList(filterListByProps(pokemonList, "type", "weaknesses", filterValue, filterWeakness.value));
@@ -48,21 +47,38 @@ function Homepage () {
       setFilteredList(filterListByName(pokemonList, e.target.value));
     }
 
+    if (filteredList.length === 0) {
+      return (
+        <>
+        <header>
+          <h1 id="main-title">Pokedex</h1>
+          <div className="filter-header-wrapper">
+            <SearchBar handlechange={filterByName}/>
+            <Filter list={pokemonList} prop="type" handlechange={handlechangeType}/>
+            <Filter list={pokemonList} prop="weaknesses" handlechange={handlechangeWeakness}/>
+          </div>
+        </header>
+          <div className="none-found">
+            No Pokemon fit this search criteria
+          </div>
+        </>
+    )
+      
+    }
+
     return (
         <>
         <header>
           <h1 id="main-title">Pokedex</h1>
           <div className="filter-header-wrapper">
+            <SearchBar handlechange={filterByName}/>
             <Filter list={pokemonList} prop="type" handlechange={handlechangeType}/>
             <Filter list={pokemonList} prop="weaknesses" handlechange={handlechangeWeakness}/>
-            <SearchBar handlechange={filterByName}/>
           </div>
         </header>
-        <body>
           <ul id="pokemon-list">
             {filteredList.map((pokemon) => <li key={pokemon.id}><DisplayCard num={pokemon.num} name={pokemon.name} src={pokemon.img} type={pokemon.type.join(", ")} weaknesses={`Weaknesses: ${pokemon.weaknesses.join(", ")}`}/></li>)}
           </ul>       
-        </body>
         </>
     )
 }

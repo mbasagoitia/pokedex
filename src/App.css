@@ -7,15 +7,21 @@ header {
   top: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 2rem;
   z-index: 2;
 }
 
 .filter-header-wrapper {
   display: flex;
-  margin-left: 3rem;
-  align-items: center;
+  justify-content: space-between;
+  margin-left: auto;
+  width: 80%;
+}
+
+#filter-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 #search-bar-wrapper {
@@ -27,6 +33,7 @@ header {
 
 header input, header select {
   width: 20vw;
+  height: 5vh;
   font-size: 1rem;
 }
 
@@ -109,6 +116,12 @@ h1 {
   visibility: hidden;
 }
 
+.none-found {
+  color: #FAF9F6;
+  margin: 2rem auto;
+  text-align: center;
+}
+
 /* styles for single pokemon page */
 
 .home-btn {
@@ -153,31 +166,67 @@ h1 {
   width: 80%;
 }
 
-#table {
-  display: block;
+.table-wrapper {
+  width: 80vw;
+  min-width: 250px;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  margin: 0 1rem;
   position: relative;
   top: -6rem;
-  margin: 0 1rem;
-  min-width: 250px;
+}
+
+#table {
+  width: 100%;
   border-spacing: 3rem 0;
+  border-collapse: collapse;
+  border-radius: 5px;
 }
 
 th, td {
   height: 2.5rem;
   min-width: 4rem;
+  width: 25%;
   padding: 0.5rem;
-  border-radius: 5px;
+  border: 1px solid #FAF9F6;
 }
 
 th {
   color: #0A285F;
-  background: transparent;
+  background: #FAF9F6;
   font-size: clamp(1rem, 1.8vw, 2rem); 
 }
 
 td {
   color: #FAF9F6;
   font-size: clamp(1rem, 1.5vw, 1.8rem); 
+}
+
+/* media queries */
+
+@media (max-width: 860px) {
+  header {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  h1 {
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  .filter-header-wrapper {
+    justify-content: space-between;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  header input, header select {
+    width: 30vw;
+    height: 4vh;
+    font-size: 1rem;
+  }
+
 }
 
 @media (max-width: 550px) {
@@ -187,5 +236,24 @@ td {
 
   #table {
     border-spacing: 0.5rem 0;
+  }
+
+  header {
+    height: 35vh;
+  }
+
+  .filter-header-wrapper {
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+  }
+
+  #search-bar-wrapper {
+    align-self: center;
+  }
+
+  header input, header select {
+    width: 80vw;
+    font-size: 1rem;
   }
 }

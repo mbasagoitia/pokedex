@@ -7,11 +7,10 @@ function Filter ({list, prop, handlechange }) {
 
     const choicesList = setChoicesList(list, prop);
 
-    //eventually remove the event listener during cleanup (unmount)
     useEffect(() => {
         let filter = document.querySelector(`#filter-${prop}`);
         filter.addEventListener("change", (e) => setProperty(e.target.value));
-    }, [prop])
+    }, [])
 
     return (
         <div id="filter-wrapper">
